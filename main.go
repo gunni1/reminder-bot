@@ -2,7 +2,7 @@ package main
 
 import (
 	"flag"
-	"github.com/robfig/cron"
+	"github.com/jasonlvhit/gocron"
 	"gopkg.in/telegram-bot-api.v4"
 	"log"
 	"reminder-bot/pkg"
@@ -20,10 +20,9 @@ func main() {
 	bot.Debug = true
 	log.Printf("Authorized on account %s", bot.Self.UserName)
 
-	c := cron.New()
-	c.Start()
+	gocron.Start()
 
-	reminder := pkg.Reminder{BotApi: bot, Cron: c}
+	reminder := pkg.Reminder{BotApi: bot, UserJobs: make(map[int64]pkg.ReminderJobs)}
 	commandHandler := pkg.CommandHandler{BotApi: bot, Reminder: reminder}
 	commandHandler.ListenForUpdates()
 

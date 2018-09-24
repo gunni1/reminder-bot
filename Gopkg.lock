@@ -2,11 +2,11 @@
 
 
 [[projects]]
-  name = "github.com/robfig/cron"
+  branch = "master"
+  name = "github.com/jasonlvhit/gocron"
   packages = ["."]
-  revision = "b41be1df696709bb6395fe435af20370037c0b4c"
-  source = "github.com/robfig/cron"
-  version = "v1.1"
+  revision = "54194c9749d48b073c9aeb2c787b6882e95dd0cd"
+  source = "github.com/jasonlvhit/gocron"
 
 [[projects]]
   name = "github.com/technoweenie/multipartstreamer"
@@ -23,6 +23,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "ddde40eff594370719625405bb5fac8f55b594747c2b29d4fe38a449e149bf31"
+  inputs-digest = "f3caa275c5b5b5cf66e63b743571e058ea2c0bfec01a668c4a438c0c1feaf0d0"
   solver-name = "gps-cdcl"
   solver-version = 1

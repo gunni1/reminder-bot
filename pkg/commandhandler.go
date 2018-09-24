@@ -3,6 +3,7 @@ package pkg
 import (
 	"gopkg.in/telegram-bot-api.v4"
 	"log"
+	"regexp"
 )
 
 type CommandHandler struct {
@@ -10,6 +11,7 @@ type CommandHandler struct {
 	Reminder Reminder
 }
 
+//Listens on Chat-Bot-Updates und responds to known commands
 func (handler CommandHandler) ListenForUpdates() {
 	updateConfig := tgbotapi.NewUpdate(0)
 	updateConfig.Timeout = 60
@@ -25,12 +27,12 @@ func (handler CommandHandler) ListenForUpdates() {
 			msg := tgbotapi.NewMessage(update.Message.Chat.ID, "")
 			switch update.Message.Command() {
 			case "help":
-				msg.Text = "/remindme 08:00 -> folgenden 3 Wochen jeden Tag um 8 Uhr eine Erinnerung."
+				msg.Text = "/remindme 08:00 -> jeden Tag um 8 Uhr eine Erinnerung."
 			case "remindme":
-				handler.Reminder.register(update.Message.Chat.ID)
-				msg.Text = "you will be reminded"
+				msg.Text = handler.handleRemindMeCommand(update.Message.CommandArguments(), update.Message.Chat.ID)
 			case "stop":
 				handler.Reminder.unregister(update.Message.Chat.ID)
+				msg.Text = "you will not longer be reminded."
 			case "ok":
 				msg.Text = "I'm ok."
 			default:
@@ -40,4 +42,18 @@ func (handler CommandHandler) ListenForUpdates() {
 		}
 
 	}
+}
+
+func (handler CommandHandler) handleRemindMeCommand(argument string, chatId int64) string {
+	if isValidRemindTime(argument) {
+		handler.Reminder.register(chatId, argument)
+		return "you will be reminded at " + argument
+	} else {
+		return "Invalid time format. Please use HH:MM e.G.: /remindme 08:00"
+	}
+}
+
+func isValidRemindTime(remindTime string) bool {
+	match, _ := regexp.MatchString("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$", remindTime)
+	return match
 }

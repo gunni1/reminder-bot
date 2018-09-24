@@ -29,5 +29,5 @@
   name = "gopkg.in/mgo.v2"
 
 [[constraint]]
-  name = "github.com/robfig/cron"
-  source = "github.com/robfig/cron"
+  name = "github.com/jasonlvhit/gocron"
+  source = "github.com/jasonlvhit/gocron"

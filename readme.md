@@ -5,7 +5,8 @@ Ein Telegram-Benutzer registriert sich an dem Bot für tägliche Erinnerungen. D
 ## /remindme
 Registriert einen Benutzer für tägliche Erinnerungen zu einer bestimmten Zeit. Wird keine Zeit angegeben erfolgen die Benachrichtigungen zu dem aktuellen Tageszeitpunkt.
 
-
+## /stop
+Beendet alle Erinnerungen.
 
 ## /ok
 Bestätigt die tägliche Erinnerung und deaktiviert somit alle weiteren an diesem Tag.
