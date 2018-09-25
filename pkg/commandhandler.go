@@ -32,11 +32,11 @@ func (handler CommandHandler) ListenForUpdates() {
 				msg.Text = handler.handleRemindMeCommand(update.Message.CommandArguments(), update.Message.Chat.ID)
 			case "stop":
 				handler.Reminder.unregister(update.Message.Chat.ID)
-				msg.Text = "you will not longer be reminded."
+				msg.Text = "Du erhälst keine Erinnerungen mehr."
 			case "ok":
-				msg.Text = "I'm ok."
+				msg.Text = "... wird noch nicht unterstützt"
 			default:
-				msg.Text = "I don't know that command"
+				msg.Text = "Befehl nicht bekannt"
 			}
 			handler.BotApi.Send(msg)
 		}
@@ -47,9 +47,9 @@ func (handler CommandHandler) ListenForUpdates() {
 func (handler CommandHandler) handleRemindMeCommand(argument string, chatId int64) string {
 	if isValidRemindTime(argument) {
 		handler.Reminder.register(chatId, argument)
-		return "you will be reminded at " + argument
+		return "Du erhälst um " + argument + " Uhr eine Erinnerung."
 	} else {
-		return "Invalid time format. Please use HH:MM e.G.: /remindme 08:00"
+		return "Falsches Zeitformat. Bitte als HH:MM angeben. z.B: /remindme 08:00"
 	}
 }
 
