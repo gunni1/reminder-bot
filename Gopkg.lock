@@ -15,6 +15,12 @@
   version = "v1.0.1"
 
 [[projects]]
+  branch = "v2"
+  name = "gopkg.in/mgo.v2"
+  packages = [".","bson","internal/json","internal/sasl","internal/scram"]
+  revision = "9856a29383ce1c59f308dd1cf0363a79b5bef6b5"
+
+[[projects]]
   name = "gopkg.in/telegram-bot-api.v4"
   packages = ["."]
   revision = "0e0af0c480ea98e982d5f4d45fb39577c6ab1e3e"
@@ -23,6 +29,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "f3caa275c5b5b5cf66e63b743571e058ea2c0bfec01a668c4a438c0c1feaf0d0"
+  inputs-digest = "b08164e654a45cd4ea637c254252a2dd3f20bcd3d1a7023560970f95b759e7eb"
   solver-name = "gps-cdcl"
   solver-version = 1

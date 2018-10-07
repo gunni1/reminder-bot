@@ -27,12 +27,16 @@ func (handler CommandHandler) ListenForUpdates() {
 			msg := tgbotapi.NewMessage(update.Message.Chat.ID, "")
 			switch update.Message.Command() {
 			case "help":
-				msg.Text = "/remindme 08:00 -> jeden Tag um 8 Uhr eine Erinnerung."
+				msg.Text = createHelpMessage()
+			case "start":
+				msg.Text = createHelpMessage()
 			case "remindme":
 				msg.Text = handler.handleRemindMeCommand(update.Message.CommandArguments(), update.Message.Chat.ID)
 			case "stop":
 				handler.Reminder.unregister(update.Message.Chat.ID)
 				msg.Text = "Du erhälst keine Erinnerungen mehr."
+			case "pause":
+				msg.Text = handler.handlePauseCommand(update.Message.Chat.ID)
 			case "ok":
 				msg.Text = "... wird noch nicht unterstützt"
 			default:
@@ -43,6 +47,14 @@ func (handler CommandHandler) ListenForUpdates() {
 
 	}
 }
+func (handler CommandHandler) handlePauseCommand(chatId int64) string {
+	if handler.Reminder.hasActiveReminder(chatId) {
+		handler.Reminder.pause(chatId)
+		return "Erinnerungen für 7 Tage pausiert."
+	} else {
+		return "Keine aktive Erinnerung zum pausieren registriert"
+	}
+}
 
 func (handler CommandHandler) handleRemindMeCommand(argument string, chatId int64) string {
 	if isValidRemindTime(argument) {
@@ -51,6 +63,12 @@ func (handler CommandHandler) handleRemindMeCommand(argument string, chatId int6
 	} else {
 		return "Falsches Zeitformat. Bitte als HH:MM angeben. z.B: /remindme 08:00"
 	}
+}
+
+func createHelpMessage() string {
+	return "/remindme 08:00 -> jeden Tag um 8 Uhr eine Erinnerung. \n" +
+		"/stop -> Keine Erinnerungen mehr \n" +
+		"/pause -> 7 Tage keine Benachrichtigung"
 }
 
 func isValidRemindTime(remindTime string) bool {
