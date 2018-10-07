@@ -25,9 +25,5 @@
   source = "gopkg.in/telegram-bot-api.v4"
 
 [[constraint]]
-  branch = "v2"
-  name = "gopkg.in/mgo.v2"
-
-[[constraint]]
   name = "github.com/jasonlvhit/gocron"
   source = "github.com/jasonlvhit/gocron"
